@@ -1,1 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
 
+
+int main() {
+	float a1, a2, a3;
+	float b1, b2, b3;
+	float c1, c2, c3;
+	float d1, d2, d3;
+	float k1, k2;
+	float l1, l2;
+	float m1, m2;
+	float x,y,z;
+	printf("Please enter the constants of the first equation with respect to x, y, z and the result:" "\n");
+	scanf("%f" "%f" "%f" "%f", &a1, &b1, &c1, &d1);
+	printf("Please enter the constants of the second equation with respect to x, y, z and the result:" "\n");
+	scanf("%f" "%f" "%f" "%f", &a2, &b2, &c2, &d2);
+	printf("Please enter the constants of the third equation with respect to x, y, z and the result:" "\n");
+	scanf("%f" "%f" "%f" "%f", &a3, &b3, &c3, &d3);
+	k1 = (b1*a2)-(b2*a1);
+	l1 = (c1*a2)-(c2*a1);
+	m1 = (d1*a2)-(d2*a1);
+	k2 = (b1*a3)-(b3*a1);
+	l2 = (c1*a3)-(c3*a1);
+	m2 = (d1*a3)-(d3*a1);
+	z = (m2*k1)/((l1*k2)-(l2*k1));
+	y = (m1-(l1*z))/k1;
+	x = (d1-(c1*z)-(b1*y))/a1;
+	printf("x is equal to = %f", x);
+	printf("y is equal to = %f", y);
+	printf("z is equal to = %f", z);
+	return 0;
+}
