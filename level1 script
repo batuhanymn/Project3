@@ -11,12 +11,48 @@ int main() {
 	float l1, l2;
 	float m1, m2;
 	float x,y,z;
-	printf("Please enter the constants of the first equation with respect to x, y, z and the result:" "\n");
-	scanf("%f" "%f" "%f" "%f", &a1, &b1, &c1, &d1);
-	printf("Please enter the constants of the second equation with respect to x, y, z and the result:" "\n");
-	scanf("%f" "%f" "%f" "%f", &a2, &b2, &c2, &d2);
-	printf("Please enter the constants of the third equation with respect to x, y, z and the result:" "\n");
-	scanf("%f" "%f" "%f" "%f", &a3, &b3, &c3, &d3);
+	int f1 = 0;
+	int f2 = 0;
+	int f3 = 0;
+	while(f1==0){
+		printf("Please enter the constants of the first equation with respect to x, y, z and the result:" "\n");
+		scanf("%f" "%f" "%f" "%f", &a1, &b1, &c1, &d1);
+		if(a1 == 0 && b1 == 0 && c1 == 0){
+			printf("Constants cannot be 0. Try again. \n");
+		}
+		else{
+			f1 = 1;
+		}				
+	}
+	
+	while(f2==0){
+		printf("Please enter the constants of the second equation with respect to x, y, z and the result:" "\n");
+		scanf("%f" "%f" "%f" "%f", &a2, &b2, &c2, &d2);
+		if(a2 == 0 && b2 == 0 && c2 == 0){
+			printf("Constants cannot be 0. Try again. \n");
+		}
+		else{
+			f2 = 1;
+		}
+	}
+	
+	while(f3==0){
+		printf("Please enter the constants of the third equation with respect to x, y, z and the result:" "\n");
+		scanf("%f" "%f" "%f" "%f", &a3, &b3, &c3, &d3);		
+		if(a3 == 0 && b3 == 0 && c3 == 0){
+			printf("Constants cannot be 0. Try again. \n");
+		}
+		else{
+			f3 = 1;
+		}
+	}
+		
+	if((a1 == a2 && b1 == b2 && c1 == c2)||(a1 == a3 && b1 == b3 && c1 == c3)||(a2 == a3 && b2 == b3 && c2 == c3)){
+		return(printf("Two equation cannot be same while solving linear equation system with three unknown"));
+	} 
+	if(a1==a2==a3 && b1==b2==b3 && c1==c2==c3){
+		return(printf("Three equation cannot be same while solving linear equation system with three unknown"));
+	}
 	k1 = (b1*a2)-(b2*a1);
 	l1 = (c1*a2)-(c2*a1);
 	m1 = (d1*a2)-(d2*a1);
