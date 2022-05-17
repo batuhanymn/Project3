@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main() {
+	float f1[] = {0, 0, 0, 0};
+	float f2[] = {0, 0, 0, 0};
+	float f3[] = {0, 0, 0, 0};
+	float x, y, z;
+	FILE *tr;
+	tr = fopen("C:\\Users\\batuh\\OneDrive\\Masaüstü\\21-22 Spring\\EEE206-S01-2021.2 Programming\\Project 3\\deneme.txt", "r");
+	fseek(tr, 0, SEEK_SET);
+	for(int i=0; i<3; i++){
+		fscanf(tr, "%f", &f1[i]);
+		fseek(tr, 1, SEEK_CUR);
+	}
+	fseek(tr, 1, SEEK_CUR);
+	fscanf(tr, "%f", &f1[3]);
+	fseek(tr, 1, SEEK_CUR);
+	for(int j=0; j<3; j++){
+		fscanf(tr, "%f", &f2[j]);
+		fseek(tr, 1, SEEK_CUR);
+	}
+	fseek(tr, 1, SEEK_CUR);
+	fscanf(tr, "%f", &f2[3]);
+	fseek(tr, 1, SEEK_CUR);
+	for(int h=0; h<3; h++){
+		fscanf(tr, "%f", &f3[h]);
+		fseek(tr, 1, SEEK_CUR);
+	}
+	fseek(tr, 1, SEEK_CUR);
+	fscanf(tr, "%f", &f3[3]);
+	fclose(tr);
+	
+	float k1, k2;
+	float l1, l2;
+	float m1, m2;
+	printf("%f" "%f" "%f" "%f \n", f1[0],f1[1],f1[2],f1[3]);
+	printf("%f" "%f" "%f" "%f \n", f2[0],f2[1],f2[2],f2[3]);
+	printf("%f" "%f" "%f" "%f \n", f3[0],f3[1],f3[2],f3[3]);	
+	if((f1[0] == f2[0] && f1[1] == f2[1] && f1[2] == f2[2])||(f1[0] == f3[0] && f1[1] == f3[1] && f1[2] == f3[2])||(f2[0] == f3[0] && f2[1] == f3[1] && f2[2] == f3[2])){
+		return(printf("Two equation cannot be same while solving linear equation system with three unknown"));
+	} 
+	if(f1[0]==f2[0]==f3[0] && f1[1]==f2[1]==f3[1] && f1[2]==f2[2]==f3[2]){
+		return(printf("Three equation cannot be same while solving linear equation system with three unknown"));
+	}
+	k1 = (f1[1]*f2[0])-(f2[1]*f1[0]);
+	l1 = (f1[2]*f2[0])-(f2[2]*f1[0]);
+	m1 = (f1[3]*f2[0])-(f2[3]*f1[0]);
+	k2 = (f1[1]*f3[0])-(f3[1]*f1[0]);
+	l2 = (f1[2]*f3[0])-(f3[2]*f1[0]);
+	m2 = (f1[3]*f3[0])-(f3[3]*f1[0]);
+	z = (m2*k1)/((l1*k2)-(l2*k1));
+	y = (m1-(l1*z))/k1;
+	x = (f1[3]-(f1[2]*z)-(f1[1]*y))/f1[0];
+	printf("x is equal to = %f", x);
+	printf("y is equal to = %f", y);
+	printf("z is equal to = %f", z);
+	return 0;
+}
