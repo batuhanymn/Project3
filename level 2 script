@@ -3,20 +3,20 @@
 
 
 int main() {
-	float f1[] = {0, 0, 0, 0};
+	float f1[] = {0, 0, 0, 0}; //We are going to store the constants of unknowns in arrays in a form of floats.
 	float f2[] = {0, 0, 0, 0};
 	float f3[] = {0, 0, 0, 0};
 	float x, y, z;
-	FILE *tr;
-	tr = fopen("C:\\Users\\batuh\\OneDrive\\Masaüstü\\21-22 Spring\\EEE206-S01-2021.2 Programming\\Project 3\\deneme.txt", "r");
-	fseek(tr, 0, SEEK_SET);
-	for(int i=0; i<3; i++){
+	FILE *tr;   
+	tr = fopen("C:\\Users\\batuh\\OneDrive\\Masaüstü\\21-22 Spring\\EEE206-S01-2021.2 Programming\\Project 3\\deneme.txt", "r");  //Opening a file
+	fseek(tr, 0, SEEK_SET);   //Setting the cursor at the beginning of the file
+	for(int i=0; i<3; i++){   //for loop is for the reading three constants of one equation
 		fscanf(tr, "%f", &f1[i]);
-		fseek(tr, 1, SEEK_CUR);
+		fseek(tr, 1, SEEK_CUR);  //moving the cursor to the next constant of the variable
 	}
 	fseek(tr, 1, SEEK_CUR);
-	fscanf(tr, "%f", &f1[3]);
-	fseek(tr, 1, SEEK_CUR);
+	fscanf(tr, "%f", &f1[3]);  //reading the result of the equation
+	fseek(tr, 1, SEEK_CUR);    //moving to the next line, same process goes for every equation
 	for(int j=0; j<3; j++){
 		fscanf(tr, "%f", &f2[j]);
 		fseek(tr, 1, SEEK_CUR);
@@ -30,31 +30,32 @@ int main() {
 	}
 	fseek(tr, 1, SEEK_CUR);
 	fscanf(tr, "%f", &f3[3]);
-	fclose(tr);
+	fclose(tr);  //closing the file
 	
-	float k1, k2;
+	float k1, k2;  //these are the constants of the equation with two unknown since we are using eliminating variables method
 	float l1, l2;
-	float m1, m2;
-	printf("%f" "%f" "%f" "%f \n", f1[0],f1[1],f1[2],f1[3]);
-	printf("%f" "%f" "%f" "%f \n", f2[0],f2[1],f2[2],f2[3]);
-	printf("%f" "%f" "%f" "%f \n", f3[0],f3[1],f3[2],f3[3]);	
+	float m1, m2;  //results of the equations with two unknown variable
+	printf("The constants of the equations: \n");
+	printf("The constant of x1: %f " "The constant of y1: %f " "The constant of z1: %f " "The result of the first equation: %f \n", f1[0], f1[1], f1[2], f1[3]); //printing the constants to be able to check it whether they are read correctly
+	printf("The constant of x2: %f " "The constant of y2: %f " "The constant of z2: %f " "The result of the second equation: %f \n", f2[0], f2[1], f2[2], f2[3]);
+	printf("The constant of x3: %f " "The constant of y3: %f " "The constant of z3: %f " "The result of the third equation: %f \n", f3[0], f3[1], f3[2], f3[3]);	
 	if((f1[0] == f2[0] && f1[1] == f2[1] && f1[2] == f2[2])||(f1[0] == f3[0] && f1[1] == f3[1] && f1[2] == f3[2])||(f2[0] == f3[0] && f2[1] == f3[1] && f2[2] == f3[2])){
-		return(printf("Two equation cannot be same while solving linear equation system with three unknown"));
+		return(printf("Two equation cannot be same while solving linear equation system with three unknown")); //the error of two same equation 
 	} 
 	if(f1[0]==f2[0]==f3[0] && f1[1]==f2[1]==f3[1] && f1[2]==f2[2]==f3[2]){
-		return(printf("Three equation cannot be same while solving linear equation system with three unknown"));
+		return(printf("Three equation cannot be same while solving linear equation system with three unknown")); //the error of three same equation
 	}
-	k1 = (f1[1]*f2[0])-(f2[1]*f1[0]);
-	l1 = (f1[2]*f2[0])-(f2[2]*f1[0]);
-	m1 = (f1[3]*f2[0])-(f2[3]*f1[0]);
-	k2 = (f1[1]*f3[0])-(f3[1]*f1[0]);
-	l2 = (f1[2]*f3[0])-(f3[2]*f1[0]);
-	m2 = (f1[3]*f3[0])-(f3[3]*f1[0]);
-	z = ((m1*k2)-(m2*k1))/((l1*k2)-(l2*k1));
-	y = (m1-(l1*z))/k1;
-	x = (f1[3]-(f1[2]*z)-(f1[1]*y))/f1[0];
-	printf("x is equal to = %f", x);
-	printf("y is equal to = %f", y);
-	printf("z is equal to = %f", z);
-	return 0;
+	k1 = (f1[1]*f2[0])-(f2[1]*f1[0]); //constant of y in the first equation with two unknown variable
+	l1 = (f1[2]*f2[0])-(f2[2]*f1[0]); //constant of z in the first equation with two unknown variable
+	m1 = (f1[3]*f2[0])-(f2[3]*f1[0]); //result of the first equation with two unknown variable
+	k2 = (f1[1]*f3[0])-(f3[1]*f1[0]); //constant of y in the second equation with two unknown variable
+	l2 = (f1[2]*f3[0])-(f3[2]*f1[0]); //constant of z in the second equation with two unknown variable
+	m2 = (f1[3]*f3[0])-(f3[3]*f1[0]); //result of the second equation with two unknown variable
+	z = ((m1*k2)-(m2*k1))/((l1*k2)-(l2*k1));  //calculating the value of z
+	y = (m1-(l1*z))/k1;                       //calculating the value of y
+	x = (f1[3]-(f1[2]*z)-(f1[1]*y))/f1[0];    //calculating the value of x
+	printf("x is equal to = %f \n", x);       //printing the value of x   
+	printf("y is equal to = %f \n", y);       //printing the value of y 
+	printf("z is equal to = %f \n", z);       //printing the value of x 
+	return 0;                                 //terminating the program
 }
