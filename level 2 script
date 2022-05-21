@@ -7,8 +7,12 @@ int main() {
 	float f2[] = {0, 0, 0, 0};
 	float f3[] = {0, 0, 0, 0};
 	float x, y, z;
+	float k1, k2;  //these are the constants of the equation with two unknown since we are using eliminating variables method
+	float l1, l2;
+	float m1, m2;  //results of the equations with two unknown variable
+	float result1, result2, result3;
 	FILE *tr;   
-	tr = fopen("C:\\Users\\batuh\\OneDrive\\Masaüstü\\21-22 Spring\\EEE206-S01-2021.2 Programming\\Project 3\\deneme.txt", "r");  //Opening a file
+	tr = fopen("C:\\Users\\batuh\\OneDrive\\Masaüstü\\21-22 Spring\\EEE206-S01-2021.2 Programming\\Project 3\\equations.txt", "r");  //Opening a file
 	fseek(tr, 0, SEEK_SET);   //Setting the cursor at the beginning of the file
 	for(int i=0; i<3; i++){   //for loop is for the reading three constants of one equation
 		fscanf(tr, "%f", &f1[i]);
@@ -31,20 +35,15 @@ int main() {
 	fseek(tr, 1, SEEK_CUR);
 	fscanf(tr, "%f", &f3[3]);
 	fclose(tr);  //closing the file
-	
-	float k1, k2;  //these are the constants of the equation with two unknown since we are using eliminating variables method
-	float l1, l2;
-	float m1, m2;  //results of the equations with two unknown variable
+	//printing the constants to be able to check it whether they are read correctly
 	printf("The constants of the equations: \n");
-	printf("The constant of x1: %f " "The constant of y1: %f " "The constant of z1: %f " "The result of the first equation: %f \n", f1[0], f1[1], f1[2], f1[3]); //printing the constants to be able to check it whether they are read correctly
+	printf("The constant of x1: %f " "The constant of y1: %f " "The constant of z1: %f " "The result of the first equation: %f \n", f1[0], f1[1], f1[2], f1[3]); 
 	printf("The constant of x2: %f " "The constant of y2: %f " "The constant of z2: %f " "The result of the second equation: %f \n", f2[0], f2[1], f2[2], f2[3]);
-	printf("The constant of x3: %f " "The constant of y3: %f " "The constant of z3: %f " "The result of the third equation: %f \n", f3[0], f3[1], f3[2], f3[3]);	
-	if((f1[0] == f2[0] && f1[1] == f2[1] && f1[2] == f2[2])||(f1[0] == f3[0] && f1[1] == f3[1] && f1[2] == f3[2])||(f2[0] == f3[0] && f2[1] == f3[1] && f2[2] == f3[2])){
-		return(printf("Two equation cannot be same while solving linear equation system with three unknown")); //the error of two same equation 
+	printf("The constant of x3: %f " "The constant of y3: %f " "The constant of z3: %f " "The result of the third equation: %f \n", f3[0], f3[1], f3[2], f3[3]);
+	
+	if(((f1[0] == f2[0] && f1[1] == f2[1] && f1[2] == f2[2])||(f1[0] == f3[0] && f1[1] == f3[1] && f1[2] == f3[2])|| (f2[0] == f3[0] && f2[1] == f3[1] && f2[2] == f3[2]))||(f1[0]==f2[0]==f3[0] && f1[1]==f2[1]==f3[1] && f1[2]==f2[2]==f3[2]) ){
+		return(printf("All equations must be different from each other.")); //the error of two same equation 
 	} 
-	if(f1[0]==f2[0]==f3[0] && f1[1]==f2[1]==f3[1] && f1[2]==f2[2]==f3[2]){
-		return(printf("Three equation cannot be same while solving linear equation system with three unknown")); //the error of three same equation
-	}
 	k1 = (f1[1]*f2[0])-(f2[1]*f1[0]); //constant of y in the first equation with two unknown variable
 	l1 = (f1[2]*f2[0])-(f2[2]*f1[0]); //constant of z in the first equation with two unknown variable
 	m1 = (f1[3]*f2[0])-(f2[3]*f1[0]); //result of the first equation with two unknown variable
@@ -57,5 +56,11 @@ int main() {
 	printf("x is equal to = %f \n", x);       //printing the value of x   
 	printf("y is equal to = %f \n", y);       //printing the value of y 
 	printf("z is equal to = %f \n", z);       //printing the value of x 
-	return 0;                                 //terminating the program
+	result1 = ((x*f1[0])+(y*f1[1])+(z*f1[2])); //plugging the variables into the first equation for verification
+	result2 = ((x*f2[0])+(y*f2[1])+(z*f2[2])); //plugging the variables into the second equation for verification
+	result3 = ((x*f3[0])+(y*f3[1])+(z*f3[2])); //plugging the variables into the third equation for verification
+	printf("Simulating for the first equation, compare it with the result of the first equation: %f \n", result1);
+	printf("Simulating for the second equation, compare it with the result of the second equation: %f \n", result2);
+	printf("Simulating for the third equation, compare it with the result of the third equation: %f \n", result3);
+	return 0;	
 }
