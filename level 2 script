@@ -11,6 +11,7 @@ int main() {
 	float l1, l2;
 	float m1, m2;  //results of the equations with two unknown variable
 	float result1, result2, result3;
+	float check = 0;
 	FILE *tr;   
 	tr = fopen("C:\\Users\\batuh\\OneDrive\\Masaüstü\\21-22 Spring\\EEE206-S01-2021.2 Programming\\Project 3\\equations.txt", "r");  //Opening a file
 	fseek(tr, 0, SEEK_SET);   //Setting the cursor at the beginning of the file
@@ -44,23 +45,37 @@ int main() {
 	if(((f1[0] == f2[0] && f1[1] == f2[1] && f1[2] == f2[2])||(f1[0] == f3[0] && f1[1] == f3[1] && f1[2] == f3[2])|| (f2[0] == f3[0] && f2[1] == f3[1] && f2[2] == f3[2]))||(f1[0]==f2[0]==f3[0] && f1[1]==f2[1]==f3[1] && f1[2]==f2[2]==f3[2]) ){
 		return(printf("All equations must be different from each other.")); //the error of two same equation 
 	} 
-	k1 = (f1[1]*f2[0])-(f2[1]*f1[0]); //constant of y in the first equation with two unknown variable
-	l1 = (f1[2]*f2[0])-(f2[2]*f1[0]); //constant of z in the first equation with two unknown variable
-	m1 = (f1[3]*f2[0])-(f2[3]*f1[0]); //result of the first equation with two unknown variable
-	k2 = (f1[1]*f3[0])-(f3[1]*f1[0]); //constant of y in the second equation with two unknown variable
-	l2 = (f1[2]*f3[0])-(f3[2]*f1[0]); //constant of z in the second equation with two unknown variable
-	m2 = (f1[3]*f3[0])-(f3[3]*f1[0]); //result of the second equation with two unknown variable
-	z = ((m1*k2)-(m2*k1))/((l1*k2)-(l2*k1));  //calculating the value of z
-	y = (m1-(l1*z))/k1;                       //calculating the value of y
-	x = (f1[3]-(f1[2]*z)-(f1[1]*y))/f1[0];    //calculating the value of x
-	printf("x is equal to = %f \n", x);       //printing the value of x   
-	printf("y is equal to = %f \n", y);       //printing the value of y 
-	printf("z is equal to = %f \n", z);       //printing the value of x 
-	result1 = ((x*f1[0])+(y*f1[1])+(z*f1[2])); //plugging the variables into the first equation for verification
-	result2 = ((x*f2[0])+(y*f2[1])+(z*f2[2])); //plugging the variables into the second equation for verification
-	result3 = ((x*f3[0])+(y*f3[1])+(z*f3[2])); //plugging the variables into the third equation for verification
-	printf("Simulating for the first equation, compare it with the result of the first equation: %f \n", result1);
-	printf("Simulating for the second equation, compare it with the result of the second equation: %f \n", result2);
-	printf("Simulating for the third equation, compare it with the result of the third equation: %f \n", result3);
-	return 0;	
+	if(f1[2]*1 == check && f2[2]*1 == check && f3[0]*1 == check && f3[1]*1 == check && f3[2]*1 == check){ //checking if the system has 2 unknowns
+		y = ((f1[3]*f2[0]) - (f2[3]*f1[0]))/((f1[1]*f2[0])-(f2[1]*f1[0])); //finding y
+		x = (f1[3]-(f1[1]*y))/f1[0];			  //finding x
+		printf("x is equal to = %f \n", x);       //printing the value of x   
+		printf("y is equal to = %f \n", y);       //printing the value of y 
+		result1 = ((x*f1[0])+y*f1[1]);			  //plugging the variables into the first equation for verification
+		result2 = ((x*f2[0])+y*f2[1]);			  //plugging the variables into the second equation for verification
+		printf("Simulating for the first equation, compare it with the result of the first equation: %f \n", result1);
+		printf("Simulating for the second equation, compare it with the result of the second equation: %f \n", result2);
+		return 0;	
+	}
+	else{
+		k1 = ((f1[1]*f2[0])-(f2[1]*f1[0])); //constant of y in the first equation with two unknown variable
+		l1 = ((f1[2]*f2[0])-(f2[2]*f1[0])); //constant of z in the first equation with two unknown variable
+		m1 = ((f1[3]*f2[0])-(f2[3]*f1[0])); //result of the first equation with two unknown variable
+		k2 = ((f1[1]*f3[0])-(f3[1]*f1[0])); //constant of y in the second equation with two unknown variable
+		l2 = ((f1[2]*f3[0])-(f3[2]*f1[0])); //constant of z in the second equation with two unknown variable
+		m2 = ((f1[3]*f3[0])-(f3[3]*f1[0])); //result of the second equation with two unknown variable
+		z = (((m1*k2)-(m2*k1))/((l1*k2)-(l2*k1)));  //calculating the value of z
+		y = ((m1-(l1*z))/k1);                       //calculating the value of y
+		x = ((f1[3]-(f1[2]*z)-(f1[1]*y))/f1[0]);    //calculating the value of x
+		printf("x is equal to = %f \n", x);       //printing the value of x   
+		printf("y is equal to = %f \n", y);       //printing the value of y 
+		printf("z is equal to = %f \n", z);       //printing the value of x 
+		result1 = ((x*f1[0])+(y*f1[1])+(z*f1[2])); //plugging the variables into the first equation for verification
+		result2 = ((x*f2[0])+(y*f2[1])+(z*f2[2])); //plugging the variables into the second equation for verification
+		result3 = ((x*f3[0])+(y*f3[1])+(z*f3[2])); //plugging the variables into the third equation for verification
+		printf("Simulating for the first equation, compare it with the result of the first equation: %f \n", result1);
+		printf("Simulating for the second equation, compare it with the result of the second equation: %f \n", result2);
+		printf("Simulating for the third equation, compare it with the result of the third equation: %f \n", result3);
+		return 0;		
+	}
+	
 }
